@@ -1,0 +1,321 @@
+#:kivy 0.6.0
+MDScreenManager:
+    LoginScreen:
+        name:"Login"
+    SignUpScreen:
+        name:"SignUp"
+    HomeScreen:
+        name:"Home"
+    Info1:
+        name:"Info1"
+    Info2:
+        name:"Info2"
+    Info3:
+        name:"Info3"
+    AboutApp:
+        name:"AboutApp"
+<LoginScreen>:
+    MDFloatLayout:
+        Image:
+            source:"bgg.jpg"
+            allow_stretch:True
+            keep_ratio:False
+            opacity:0.7
+        MDLabel:
+            text:"Welcome!"
+            color:"#000000"
+            font_size:"40sp"
+            halign:"center"
+            pos_hint:{"center_x":0.5, "center_y":0.8}
+        MDTextField:
+            id:username
+            hint_text:"Username"
+            mode:"fill"
+            icon_right:"account"
+            font_size:"30sp"
+            pos_hint:{"center_x":0.5, "center_y":0.65}
+            hint_text_color_focus:[0,0,0,0]
+            text_color_focus:[0,0,0,0]
+            icon_right_color_focus:[0,0,0,0]
+            size_hint_x:0.85
+            multiline:False
+        MDTextField:
+            id:password
+            hint_text:"Password"
+            mode:"fill"
+            icon_right:"key-variant"
+            font_size:"30sp"
+            pos_hint:{"center_x":0.5, "center_y":0.5}
+            hint_text_color_focus:[0,0,0,0]
+            text_color_focus:[0,0,0,0]
+            icon_right_color_focus:[0,0,0,0]
+            size_hint_x:0.85
+            multiline:False
+            password:True
+        MDRaisedButton:
+            text:"Sign In"
+            font_size:"30sp"
+            pos_hint:{"center_x":0.5, "center_y":0.35}
+            on_press:root.sign_in()
+        MDLabel:
+            text:"Don't have an account?"
+            color:"#000000"
+            font_size:"15sp"  
+            halign:"center"
+            pos_hint:{"center_x":0.5, "center_y":0.27}
+        MDTextButton:
+            text:"Sign Up"
+            font_size:"25sp"
+            size_hint:(None, None)
+            size:100,100
+            pos_hint:{"center_x":0.5, "center_y":0.24}
+            color:"#F5208C"
+            on_press:
+                root.manager.current="SignUp"
+                root.manager.transition.direction="left"
+
+<SignUpScreen>:
+    MDFloatLayout:
+        Image:
+            source:"bgg.jpg"
+            allow_stretch:True
+            keep_ratio:False
+            opacity:0.7
+        MDLabel:
+            text:"SignUp"
+            color:"#000000"
+            font_size:"40sp"
+            halign:"center"
+            pos_hint:{"center_x":0.5, "center_y":0.9}
+        MDTextField:
+            id:username
+            hint_text:"Username"
+            mode:"fill"
+            font_size:"30sp"
+            pos_hint:{"center_x":0.5, "center_y":0.75}
+            hint_text_color_focus:[0,0,0,0]
+            text_color_focus:[0,0,0,0]
+            size_hint_x:0.85
+            multiline:False
+        MDTextField:
+            id:email
+            hint_text:"Email"
+            mode:"fill"
+            font_size:"30sp"
+            pos_hint:{"center_x":0.5, "center_y":0.6}
+            hint_text_color_focus:[0,0,0,0]
+            text_color_focus:[0,0,0,0]
+            size_hint_x:0.85
+            multiline:False
+        MDTextField:
+            id:password
+            hint_text:"Password"
+            mode:"fill"
+            font_size:"30sp"
+            pos_hint:{"center_x":0.5, "center_y":0.45}
+            hint_text_color_focus:[0,0,0,0]
+            text_color_focus:[0,0,0,0]
+            size_hint_x:0.85
+            multiline:False
+            password:True
+        MDTextField:
+            id:cfmpassword
+            hint_text:"Confirm Password"
+            mode:"fill"
+            pos_hint:{"center_x":0.5, "center_y":0.3}
+            hint_text_color_focus:[0,0,0,0]
+            text_color_focus:[0,0,0,0]
+            size_hint_x:0.85
+            font_size:"30sp"
+            multiline:False
+            password:True
+        MDRaisedButton:
+            text:"Sign Up"
+            font_size:"30sp"
+            halign:"center"
+            color:"#11A6F0"
+            size_hint:(None, None)
+            size:100,100
+            pos_hint:{"center_x":0.5, "center_y":0.13}
+            on_press: root.insert_data()
+        MDIconButton:
+            icon:"arrow-left"
+            font_size:"30sp"
+            theme_icon_color:"Custom"
+            icon_color:"#000000"
+            pos:0,1000
+            on_press:
+                root.manager.current="Login"
+                root.manager.transition.direction="right"
+
+<HomeScreen>:
+    MDGridLayout:
+        rows:1
+        MDBottomNavigation:
+            id:nav
+            MDBottomNavigationItem:
+                id:home
+                name:"Home"
+                text:"Home"
+                icon:"home" 
+                on_tab_press:root.hometab()
+                on_leave:root.home_leave()
+                Image:
+                    source:"bgg.jpg"
+                    allow_stretch:True
+                    keep_ratio:False  
+                    opacity:0.7
+            MDBottomNavigationItem:
+                id:contacts
+                name:"Contacts"
+                text:"Contacts"
+                icon:"phone"
+                on_tab_press:root.display_contacts()
+                on_leave:root.call_leave()
+                Image:
+                    source:"bgg.jpg"
+                    allow_stretch:True
+                    keep_ratio:False
+                    opacity:0.7
+                MDFloatingActionButton:
+                    icon: "plus"
+                    pos_hint:{"center_x":0.9,"center_y":0.1}
+                    on_press:root.contact()
+            MDBottomNavigationItem:
+                id:stips
+                name:"Safety Tips"
+                text:"Safety Tips"
+                icon:"security"
+                Image:
+                    source:"bgg.jpg"
+                    allow_stretch:True
+                    keep_ratio:False
+                    opacity:0.7
+                MDGridLayout:
+                    cols:1
+                    pos_hint:{"center_y":0.4}
+                    MDList:
+                        OneLineIconListItem:
+                            text: "Common safety tips"
+                            on_press:root.info1()
+                            IconLeftWidgetWithoutTouch:
+                                icon:"circle-small"
+                        OneLineIconListItem:
+                            text: "Tips to escape"
+                            on_press:root.info2()
+                            IconLeftWidgetWithoutTouch:
+                                icon: "circle-small"
+                        OneLineIconListItem:
+                            text: "What to do after escaping danger" 
+                            on_press:root.info3()
+                            IconLeftWidgetWithoutTouch:
+                                icon: "circle-small"
+            MDBottomNavigationItem:
+                id:setting
+                name:"Settings"
+                text:"Settings"
+                icon:"cog" 
+                Image:
+                    source:"bgg.jpg"
+                    allow_stretch:True
+                    keep_ratio:False
+                    opacity:0.7
+                MDGridLayout:
+                    cols:1
+                    pos_hint:{"center_y":0.4}
+                    MDList:
+                        OneLineIconListItem:
+                            text: "Create New Account"
+                            on_press: 
+                                root.manager.current="SignUp"
+                                root.manager.transition.direction="right"
+                            IconLeftWidgetWithoutTouch:
+                                icon: "account-plus"
+                        OneLineIconListItem:
+                            text: "Delete Account"
+                            on_press:root.delete()
+                            IconLeftWidgetWithoutTouch:
+                                icon: "account-remove"
+                        OneLineIconListItem:
+                            text: "Logout"
+                            on_press: 
+                                root.manager.current="Login"
+                                root.manager.transition.direction="right"
+                            IconLeftWidgetWithoutTouch:
+                                icon: "logout"
+                        OneLineIconListItem:
+                            text: "About the App"
+                            on_press:
+                                root.manager.current="AboutApp"
+                                root.manager.transition.direction="left"
+                            IconLeftWidgetWithoutTouch:
+                                icon: "information"
+                        TwoLineIconListItem:
+                            text: "Contact Us"
+                            secondary_text:"shesecure1@gmail.com"
+                            IconLeftWidgetWithoutTouch:
+                                icon: "gmail"
+ 
+    MDTopAppBar:
+        title: "SheSecure"
+        anchor_title:"center"
+        pos_hint: {"top": 1}
+        md_bg_color:"#222424"
+        right_action_items: [["logout", lambda x: root.logout()]]
+
+<Info1>:
+    Image:
+        source:"bgg.jpg"
+        allow_stretch:True
+        keep_ratio:False
+        opacity:0.7
+    MDTopAppBar:
+        title: "SheSecure"
+        pos_hint: {"top": 1}
+        md_bg_color:"#222424"
+        left_action_items: [["arrow-left", lambda x:root.back1()]]
+        right_action_items: [["logout", lambda x: root.logout()]]
+
+<Info2>:
+    Image:
+        source:"bgg.jpg"
+        allow_stretch:True
+        keep_ratio:False
+        opacity:0.7
+    MDTopAppBar:
+        title: "SheSecure"
+        pos_hint: {"top": 1}
+        md_bg_color:"#222424"
+        left_action_items: [["arrow-left", lambda x:root.back2()]]
+        right_action_items: [["logout", lambda x: root.logout()]]
+
+
+<Info3>:
+    Image:
+        source:"bgg.jpg"
+        allow_stretch:True
+        keep_ratio:False
+        opacity:0.7
+    MDTopAppBar:
+        title: "SheSecure"
+        pos_hint: {"top": 1}
+        md_bg_color:"#222424"
+        left_action_items: [["arrow-left", lambda x:root.back3()]]
+        right_action_items: [["logout", lambda x: root.logout()]]
+
+<AboutApp>:
+    Image:
+        source:"bgg.jpg"
+        allow_stretch:True
+        keep_ratio:False
+        opacity:0.7
+    MDTopAppBar:
+        title: "SheSecure"
+        pos_hint: {"top": 1}
+        md_bg_color:"#222424"
+        left_action_items: [["arrow-left", lambda x:root.back()]]
+        right_action_items: [["logout", lambda x: root.logout()]]
+    
+
+    
+    
